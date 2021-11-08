@@ -8,17 +8,13 @@ use Petrik14S\KorcsmarosKristof\Halloween\Models\Lako;
 $lakok = [];
 $esemenyek = [];
 
-for ($i = 0; $i < 4; $i++){
-    $lakok[] = new Lako("Lakó " . ($i + 1));
-}
+$lakok[] = new Lako("Béla");
+$lakok[] = new Lako("Jani");
+$lakok[] = new Lako("Károly");
+$lakok[] = new Lako("Alexandra");
 
-for ($i = 0; $i < 2; $i++){
-    $resztvevok = [];
-    for($j = 0; $j < 2; $j++){
-        $resztvevok[] = $lakok[$i * 2 + $j];
-    }
-    $esemenyek[] = new Esemeny("Esemény " . ($i + 1), $lakok[$i], $resztvevok, new DateTime("2021-11-0$i 10:10:0$i"));
-}
+$esemenyek[] = new Esemeny("Halloween buli", $lakok[0], array($lakok[0], $lakok[1], $lakok[3]), new DateTime("2021-10-31 20:00:00"));
+$esemenyek[] = new Esemeny("Fesztivál", $lakok[2], array($lakok[2], $lakok[0], $lakok[1], $lakok[3]), new DateTime("2021-10-30 10:00:00"));
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +45,10 @@ for ($i = 0; $i < 2; $i++){
                 echo "Szervező: " . $esemeny->getSzervezo()->getNev() . "<br>";
                 echo "Résztvevők: ";
                 echo "<ul>";
-                
+                $resztvevok = $esemeny->getResztvevok();
+                foreach($resztvevok as $resztvevo){
+                    echo "<li>" . $resztvevo->getNev() . "</li>";
+                }
                 echo "</ul>";
                 echo "Időpont: " . $esemeny->getIdo()->format("Y-m-d H:i:s") . "<br>";
                 echo "</li>";
